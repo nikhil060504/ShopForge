@@ -126,7 +126,7 @@ ShopForge/
 ├── app/
 │   ├── api/
 │   │   └── generate/
-│   │       └── route.ts          # Groq API integration
+│   │       └── route.ts          # OpenAI API integration
 │   ├── dashboard/
 │   │   └── page.tsx               # Main UI
 │   ├── layout.tsx                 # Root layout
@@ -246,7 +246,7 @@ The same generated code looks perfect on mobile devices.
 1. **Single Component**: Generates one page at a time
 2. **No State Persistence**: Code is lost on refresh
 3. **Limited Refinement**: Basic iteration support
-4. **Groq Rate Limits**: Free tier has request limits
+4. **API Rate Limits**: OpenAI API has usage limits
 
 ---
 
@@ -375,4 +375,6 @@ Project Link: [https://github.com/nikhil060504/ShopForge](https://github.com/nik
 
 ---
 
+Deployed_Link:- https://shop-forge-bzd6.vercel.app/dashboard
 
+Made with ❤️ using AI
