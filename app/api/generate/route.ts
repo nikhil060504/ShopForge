@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import Groq from "groq-sdk";
+import OpenAI from "openai";
 import { buildPrompt } from "@/lib/aiPromptBuilder";
 import { sanitizeCode, validateGeneratedCode } from "@/lib/codeSanitizer";
 import type { GenerationRequest, GenerationResponse } from "@/types/generation";
 
-const groq = new Groq({
-    apiKey: process.env.GROQ_API_KEY,
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
 });
 
 export async function POST(req: NextRequest) {
@@ -27,8 +27,8 @@ export async function POST(req: NextRequest) {
             previousCode,
         });
 
-        const completion = await groq.chat.completions.create({
-            model: "llama-3.3-70b-versatile",
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4",
             messages: [
                 {
                     role: "system",
@@ -68,3 +68,4 @@ export async function POST(req: NextRequest) {
         );
     }
 }
+

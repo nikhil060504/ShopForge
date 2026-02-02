@@ -5,7 +5,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-38bdf8)](https://tailwindcss.com/)
-[![Groq](https://img.shields.io/badge/Groq-Llama_3.3-orange)](https://groq.com/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-green)](https://openai.com/)
 
 ---
 
@@ -14,7 +14,7 @@
 ShopForge is an AI-powered website generator that creates production-ready Next.js websites from natural language descriptions. Simply describe your shop, select a page type (Landing or Product), and watch as AI generates a fully-functional, responsive website with modern design.
 
 **Key Features:**
-- 🤖 **AI-Powered Generation** - Uses Groq's Llama 3.3 70B model
+- 🤖 **AI-Powered Generation** - Uses OpenAI's GPT-4 model
 - 📱 **Responsive Preview** - Desktop/mobile viewport toggle
 - 💾 **Code Export** - Copy or download generated code
 - 🎨 **Modern Design** - Tailwind CSS with gradients and shadows
@@ -28,7 +28,7 @@ ShopForge is an AI-powered website generator that creates production-ready Next.
 
 - Node.js 18+ 
 - npm or yarn
-- Groq API key ([Get one free](https://console.groq.com/))
+- OpenAI API key ([Get one here](https://platform.openai.com/api-keys))
 
 ### Installation
 
@@ -47,7 +47,7 @@ npm install
 
 Create a `.env.local` file in the root directory:
 ```env
-GROQ_API_KEY=your_groq_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
 4. **Run the development server**
@@ -74,9 +74,9 @@ http://localhost:3000
 - **Custom Gradients** - Modern visual design
 
 ### AI Integration
-- **Groq API** - Ultra-fast LLM inference
-- **Llama 3.3 70B Versatile** - Production model
-- **groq-sdk** - Official Node.js SDK
+- **OpenAI API** - GPT-4 for code generation
+- **GPT-4** - Production-ready language model
+- **openai** - Official Node.js SDK
 
 ### Preview System
 - **Babel Standalone** - Client-side JSX transpilation
@@ -87,10 +87,10 @@ http://localhost:3000
 
 ## 🎨 Design Decisions
 
-### 1. **Why Groq over OpenAI?**
-- **Speed**: Groq's LPU delivers 10x faster inference than GPUs
-- **Cost**: More affordable for high-volume generation
-- **Quality**: Llama 3.3 70B matches GPT-4 quality for code generation
+### 1. **Why GPT-4?**
+- **Quality**: Industry-leading code generation capabilities
+- **Reliability**: Consistent, high-quality output
+- **Ecosystem**: Extensive documentation and community support
 
 ### 2. **Client-Side JSX Compilation**
 Instead of server-side rendering, we use Babel Standalone in the browser:
@@ -171,7 +171,7 @@ ShopForge/
 ### 3. **AI Generation**
 ```typescript
 // app/api/generate/route.ts
-- Calls Groq API with llama-3.3-70b-versatile
+- Calls OpenAI API with GPT-4
 - Temperature: 0.7 (balanced creativity)
 - Max tokens: 3000
 ```
@@ -262,7 +262,86 @@ The same generated code looks perfect on mobile devices.
 
 ---
 
+## 💡 Hardest Technical Challenge
+
+The hardest challenge in ShopForge was **rendering AI-generated code inside a preview environment**. 
+
+The AI initially returned complete React or Next.js page code with imports, exports, and directives. However, the preview environment only needed a pure React component. This mismatch caused preview failures and runtime errors, even when code generation itself succeeded.
+
+**The Solution:**
+I solved this by implementing a three-layer approach:
+1. **Enforcing output format** in the system prompt - AI now generates only function components
+2. **Sanitization step** - Strips imports, exports, and directives before rendering
+3. **Validation step** - Checks for required elements (export default, className usage)
+
+This kept the preview environment stable while maintaining flexibility in the generation pipeline.
+
+---
+
+## 📚 What I Learned
+
+Working on ShopForge taught me that **controlling and validating AI output is critical** when integrating AI into applications. Generating code isn't enough—the output must match the expectations of the runtime environment.
+
+**Key Takeaways:**
+- AI output requires robust sanitization and validation layers
+- System prompts are powerful tools for output control
+- Error handling around AI systems needs special attention
+- Building intuitive UIs around AI features requires careful abstraction
+- Real-time preview systems need careful state management
+
+I also gained hands-on experience with designing error-tolerant systems, building interactive UIs around AI capabilities, and managing the complexity of dynamic code generation.
+
+---
+
+## 🚀 Future Improvements
+
+If I had more time, I would add:
+
+**Version History**
+- Save generated page versions
+- Allow users to compare design variations
+- Implement rollback functionality
+
+**One-Click Deployment**
+- Direct deployment to Vercel/Netlify
+- Automatic repository creation
+- Environment variable setup
+
+**Enhanced Editing**
+- Section-level editing of generated pages
+- Visual component picker
+- Style customization panel
+
+**Performance Optimization**
+- Faster preview rendering
+- Code caching for similar prompts
+- Optimized iframe loading
+
+**Multi-Page Support**
+- Generate complete websites with navigation
+- Page linking and routing
+- Consistent design system across pages
+
+---
+
+## 🤖 How AI Was Used in My Workflow
+
+**Core Generation Engine:**
+I used AI (GPT-4) as the primary generation engine to convert natural language descriptions into React components styled with Tailwind CSS.
+
+**Iterative Prompt Refinement:**
+I continuously refined prompts to improve layout quality and reliability. This involved testing edge cases, refining output format requirements, and optimizing for consistency.
+
+**Rapid Prototyping:**
+AI outputs helped me quickly test UI ideas, validate design concepts, and identify rendering issues before they became problems.
+
+**Provider Abstraction:**
+The AI layer is abstracted, making it easy to switch between providers (OpenAI, Groq, etc.) without changing the rest of the application architecture.
+
+---
+
 ## 🤝 Contributing
+
 
 Contributions are welcome! Please follow these steps:
 
@@ -282,8 +361,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- **Groq** - For lightning-fast LLM inference
-- **Meta** - For Llama 3.3 open-source model
+- **OpenAI** - For GPT-4 language model
 - **Vercel** - For Next.js framework
 - **Tailwind Labs** - For Tailwind CSS
 
@@ -297,4 +375,4 @@ Project Link: [https://github.com/nikhil060504/ShopForge](https://github.com/nik
 
 ---
 
-Made with ❤️ using AI
+
